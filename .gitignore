@@ -1,2 +1,10 @@
+# Dependencies
 node_modules/
+
+# Build outputs
+dist/
+*.map
+
+# System files
 .DS_Store
+*.log
