@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
-    "module": "ES2020",
-    "lib": ["es2015", "dom", "es5"],
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "declaration": true,
     "sourceMap": true,
-    "outDir": "./dist/esm",
+    "outDir": "./dist",
     "rootDir": "./src",
-    "downlevelIteration": true,
     "strict": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "moduleResolution": "node"
-  }
+    "moduleResolution": "bundler"
+  },
+  "include": ["src/**/*"]
 }

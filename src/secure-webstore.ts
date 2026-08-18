@@ -43,11 +43,13 @@ class Store {
       this.encMasterKey = encryptedKey
       this._key = await crypto.decryptMasterKey(this.passphrase, this.encMasterKey)
       // close DB connection if the window enters freeze state
-      window.addEventListener('freeze', () => {
-        this.close()
-      })
-    } catch (e) {
-      throw new Error(e.message)
+      if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+        window.addEventListener('freeze', () => {
+          this.close()
+        })
+      }
+    } catch (e: any) {
+      throw new Error(e?.message || String(e))
     }
   }
 
@@ -59,8 +61,8 @@ class Store {
       const encryptedKey = await crypto.updatePassphraseKey(oldPass, newPass, this.encMasterKey)
       await idb.set(encryptedKeyKey, encryptedKey, this.store)
       this.encMasterKey = encryptedKey
-    } catch (e) {
-      throw new Error(e.message)
+    } catch (e: any) {
+      throw new Error(e?.message || String(e))
     }
   }
 
@@ -100,7 +102,11 @@ class Store {
   destroy () {
     return new Promise((resolve, reject) => {
       this.close()
-      const req = window.indexedDB.deleteDatabase(this.storeName)
+      const idb = globalThis.indexedDB || (typeof window !== 'undefined' ? window.indexedDB : undefined)
+      if (!idb) {
+        throw new Error('IndexedDB is not supported in this environment')
+      }
+      const req = idb.deleteDatabase(this.storeName)
       req.onsuccess = (e) => {
         resolve(e)
       }

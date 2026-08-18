@@ -1,45 +1,57 @@
 {
-    "name": "secure-webstore",
-    "version": "1.3.7",
-    "description": "Secure IndexedDB store using encryption",
-    "author": "Andrei Sambra <andrei.sambra@akasha.world>",
-    "license": "MIT",
-    "keywords": [
-        "indexeddb",
-        "webcrypto api",
-        "cryptography",
-        "key derivation",
-        "secure storage"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/AkashaProject/secure-webstore.git"
+  "name": "secure-webstore",
+  "version": "1.3.7",
+  "description": "Secure IndexedDB store using encryption",
+  "author": "Andrei Sambra <andrei.sambra@akasha.world>",
+  "license": "MIT",
+  "keywords": [
+    "indexeddb",
+    "webcrypto api",
+    "cryptography",
+    "key derivation",
+    "secure storage"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AKASHAorg/secure-webstore.git"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     },
-    "main": "dist/cjs/secure-webstore.js",
-    "module": "dist/esm/secure-webstore.js",
-    "files": [
-        "dist/"
-    ],
-    "scripts": {
-        "build": "npm run tsc && webpack --mode production",
-        "test-only": "mocha-headless-chrome -f ./test/index.html",
-        "test": "npm run build && npm run test-only",
-        "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json"
+    "./cjs/secure-webstore": {
+      "types": "./dist/cjs/secure-webstore.d.ts",
+      "require": "./dist/cjs/secure-webstore.js"
     },
-    "dependencies": {
-        "easy-web-crypto": "^1.3.1",
-        "glob-parent": ">=6.0.1"
-    },
-    "devDependencies": {
-        "@types/node": "^16.3.3",
-        "babel": "^6.23.0",
-        "chai": "^4.3.4",
-        "mocha": "^9.0.2",
-        "mocha-headless-chrome": "^3.1.0",
-        "standard": "^16.0.3",
-        "ts-loader": "^9.2.3",
-        "typescript": "^4.3.5",
-        "webpack": "^5.45.1",
-        "webpack-cli": "^4.7.2"
+    "./esm/secure-webstore": {
+      "types": "./dist/esm/secure-webstore.d.mts",
+      "import": "./dist/esm/secure-webstore.mjs"
     }
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "easy-web-crypto": "^1.4.0"
+  },
+  "overrides": {
+    "buffer": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "fake-indexeddb": "^6.1.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
+  }
 }
