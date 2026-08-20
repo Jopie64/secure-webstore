@@ -2,7 +2,7 @@
   "name": "secure-webstore",
   "version": "1.3.7",
   "description": "Secure IndexedDB store using encryption",
-  "author": "Andrei Sambra <andrei.sambra@akasha.world>",
+  "author": "Andrei Sambra <andrei.sambra@gmail.com>",
   "license": "MIT",
   "keywords": [
     "indexeddb",
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/AKASHAorg/secure-webstore.git"
+    "url": "https://github.com/deiu/secure-webstore.git"
   },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
