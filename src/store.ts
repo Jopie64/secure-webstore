@@ -31,7 +31,11 @@ class Store {
       return this._dbp
     }
     this._dbp = await new Promise<IDBDatabase>((resolve, reject) => {
-      const openreq = window.indexedDB.open(this._dbName, 1)
+      const idb = globalThis.indexedDB || (typeof window !== 'undefined' ? window.indexedDB : undefined)
+      if (!idb) {
+        throw new Error('IndexedDB is not supported in this environment')
+      }
+      const openreq = idb.open(this._dbName, 1)
       openreq.onerror = () => reject(openreq.error)
       openreq.onsuccess = () => resolve(openreq.result)
       // First time setup: create an empty object store
